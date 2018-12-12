@@ -2,26 +2,23 @@ FROM leochan007/ubuntu1604_base
 
 LABEL MAINTAINER leo chan <leochan007@163.com>
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y apache2 php php-curl php-gd php-ldap php-mbstring \
+  php-mcrypt php-mysql php-xml php-zip php-cli php-json curl unzip libapache2-mod-php locales
 
-ENV ZENTAO_VER=10.6
+ENV LANG="en_US.UTF8"
+RUN echo -e "LANG=\"en_US.UTF-8\"\nLANGUAGE=\"en_US:en\"" > /etc/default/locale && locale-gen en_US.UTF-8
 
-ARG ZENTAO_URL=http://dl.cnezsoft.com/zentao/${ZENTAO_VER}/ZenTaoPMS.${ZENTAO_VER}.stable.zbox_64.tar.gz
+RUN mkdir -p /app/zentaopms
+COPY docker-entrypoint.sh /app
+RUN random=`date +%s`; curl http://cdn.zentaopm.com/latest/zentao.zip?rand=$random -o /var/www/zentao.zip
+RUN cd /var/www/ && unzip -q zentao.zip && rm zentao.zip
+RUN a2enmod rewrite
 
-RUN apt-get update
+RUN rm -rf /etc/apache2/sites-enabled/000-default.conf /var/lib/mysql/*
+COPY config/apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY config/ioncube_loader_lin_7.0.so /usr/lib/php/20151012/ioncube_loader_lin_7.0.so
+COPY config/00-ioncube.ini /etc/php/7.0/apache2/conf.d/
+COPY config/00-ioncube.ini /etc/php/7.0/cli/conf.d/
 
-RUN apt-get install -y vim telnet unzip
-
-WORKDIR /opt
-
-RUN curl -O ${ZENTAO_URL}
-
-RUN tar -xvf ZenTaoPMS.${ZENTAO_VER}.stable.zbox_64.tar.gz
-
-COPY docker-entrypoint /usr/local/bin/docker-entrypoint
-
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
-EXPOSE 80
-
-ENTRYPOINT ["docker-entrypoint"]
+VOLUME /app/zentaopms
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

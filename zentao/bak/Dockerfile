@@ -1,4 +1,4 @@
-FROM php:7.1.25-apache
+FROM leochan007/ubuntu1604_base
 
 LABEL MAINTAINER leo chan <leochan007@163.com>
 
@@ -10,14 +10,18 @@ ARG ZENTAO_URL=http://dl.cnezsoft.com/zentao/${ZENTAO_VER}/ZenTaoPMS.${ZENTAO_VE
 
 RUN apt-get update
 
-RUN apt-get install -y vim telnet unzip
+RUN apt-get install -y vim telnet unzip wget
 
-WORKDIR /var/www/html
+WORKDIR /opt
 
 RUN curl -O ${ZENTAO_URL}
 
 RUN tar -xvf ZenTaoPMS.${ZENTAO_VER}.stable.zbox_64.tar.gz
 
-RUN mv zbox/app/zentao .
+COPY docker-entrypoint /usr/local/bin/docker-entrypoint
 
-#RUN rm -rf zbox/
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint"]
