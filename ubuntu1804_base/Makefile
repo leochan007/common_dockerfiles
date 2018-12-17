@@ -1,4 +1,4 @@
-BUILD_TAG=leochan007/nginx
+BUILD_TAG=leochan007/ubuntu1804_base
 
 ifdef VER
 	BUILD_TAG=$(BUILD_TAG):$(VER)

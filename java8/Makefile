@@ -6,7 +6,7 @@ ifdef VER
 	BUILD_TAG=$(BUILD_TAG):$(VER)
 endif
 
-EXTRA=''
+EXTRA=
 ifdef R
 	EXTRA="--no-cache"
 endif
@@ -16,5 +16,5 @@ build:
 
 push:
 	docker push $(BUILD_TAG)
-	
+
 all: build push

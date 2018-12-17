@@ -29,10 +29,10 @@ deb http://archive.canonical.com/ubuntu/ xenial partner \n" \
 RUN apt-get update && apt-get install -y apt-utils
 
 RUN apt-get install -y --allow-remove-essential \
-    --no-install-recommends locales tzdata 
+    --no-install-recommends locales tzdata
 
 RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN apt-get install -y vim curl inetutils-ping net-tools telnet
 
-RUN apt-get dist-upgrade -y
+#RUN apt-get dist-upgrade -y

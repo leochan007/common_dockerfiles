@@ -1,4 +1,4 @@
-BUILD_TAG=leochan007/nginx
+BUILD_TAG=leochan007/eos
 
 ifdef VER
 	BUILD_TAG=$(BUILD_TAG):$(VER)
