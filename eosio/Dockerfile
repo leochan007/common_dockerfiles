@@ -10,3 +10,11 @@ WORKDIR /root
 RUN wget https://github.com/eosio/eos/releases/download/v$EOS_VER/eosio_$EOS_VER-1-ubuntu-18.04_amd64.deb
 
 RUN apt-get install -y ./eosio_$EOS_VER-1-ubuntu-18.04_amd64.deb
+
+COPY config /root/config
+
+COPY start.sh /root
+
+RUN chmod a+x start.sh
+
+ENTRYPOINT ["/root/start.sh"]
