@@ -4,7 +4,7 @@ LABEL MAINTAINER leo chan <leochan007@163.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN npm i -g npm && npm i -g pm2@3.2.2
+RUN npm i -g npm yarn && npm i -g pm2@3.2.2
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 
