@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y apt-utils
 RUN apt-get install -y --allow-remove-essential \
     --no-install-recommends locales tzdata
 
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
 RUN apt-get install -y vim curl inetutils-ping net-tools telnet
 
