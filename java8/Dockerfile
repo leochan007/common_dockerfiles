@@ -1,4 +1,4 @@
-FROM leochan007/ubuntu1604_base
+FROM leochan007/ubuntu1804_base
 LABEL MAINTAINER leo chan <leochan007@163.com>
 
 ENV DEBIAN_FRONTEND noninteractive

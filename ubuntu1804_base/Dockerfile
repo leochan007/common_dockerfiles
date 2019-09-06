@@ -26,13 +26,10 @@ deb http://archive.canonical.com/ubuntu/ bionic partner \n" \
 #deb http://extras.ubuntu.com/ubuntu/ bionic main \n
 
 # Update packages
-RUN apt-get update && apt-get install -y apt-utils
 
-RUN apt-get install -y --allow-remove-essential \
-    --no-install-recommends locales tzdata
-
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
-
-RUN apt-get install -y vim curl inetutils-ping net-tools telnet wget
+RUN apt-get update && apt-get install -y apt-utils \
+    && apt-get install -y --allow-remove-essential --no-install-recommends locales tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone \
+    && apt-get install -y vim curl inetutils-ping net-tools telnet language-pack-zh-hans
 
 #RUN apt-get dist-upgrade -y
